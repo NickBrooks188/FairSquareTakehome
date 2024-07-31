@@ -3,7 +3,6 @@ import { useDispatch, TypedUseSelectorHook, useSelector } from "react-redux";
 import { persistReducer } from "redux-persist";
 import createWebStorage from "redux-persist/lib/storage/createWebStorage";
 import { usersReducer } from "./users";
-import { sessionReducer } from "./session";
 
 const createNoopStorage = () => {
     return {
@@ -30,10 +29,7 @@ const authPersistConfig = {
     whitelist: ["authState"],
 };
 
-const persistedReducer = persistReducer(authPersistConfig, sessionReducer);
-
 const rootReducer = combineReducers({
-    session: persistedReducer,
     users: usersReducer
 });
 
