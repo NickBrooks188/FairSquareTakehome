@@ -15,7 +15,7 @@ export const addUser = (user: {}) => async (dispatch: any) => {
 };
 
 export const usersSlice = createSlice({
-    name: "settlement",
+    name: "users",
     initialState,
     reducers: {
         setUsers: (state, action: PayloadAction) => {

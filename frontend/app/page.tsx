@@ -6,35 +6,29 @@ import { faArrowsSpin } from "@fortawesome/free-solid-svg-icons";
 import { useAppDispatch, useAppSelector } from "./redux/store";
 import { useEffect } from "react";
 import { thunkGetUsers } from "./redux/users";
-import { Client } from "postmark"
-
 
 export default function Home() {
   const dispatch = useAppDispatch();
   const users = useAppSelector(state => state.users.data)
-  const postmarkClient = new Client(process.env.NEXT_PUBLIC_POSTMARK_SERVER_TOKEN || '');
 
   useEffect(() => {
     dispatch(thunkGetUsers())
   }, [])
 
-  const sendEmail = async () => {
-    console.log("Here")
-
-    const emailData = {
-      From: 'nicholas.brooks@aya.yale.edu',
-      To: 'nicholas.brooks@aya.yale.edu',
-      Subject: "Hello",
-      HtmlBody: "Test",
-    };
-
+  async function sendEmail() {
+    const subject = "TEST"
+    const body = 'Another test'
+    const to = 'nicholas.brooks@aya.yale.edu'
     try {
-      const result = await postmarkClient.sendEmail(emailData);
-      console.log('Email sent successfully!');
-      return result;
-    } catch (error) {
-      console.error('Error sending email:', error);
-      throw error;
+      await fetch('/api/email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ subject, body, to })
+      })
+    } catch (e) {
+      console.error(e);
     }
   }
 

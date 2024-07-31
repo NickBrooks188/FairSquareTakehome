@@ -8,8 +8,8 @@ const ReduxProvider = dynamic(() => import("@/app/redux/StoreProvider"), {
 }); const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Settlement",
-  description: "Settlement",
+  title: "Fair Square",
+  description: "Takehome",
 };
 
 export default function RootLayout({
