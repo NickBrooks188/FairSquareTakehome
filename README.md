@@ -11,7 +11,7 @@
 3. Create a __.env.local__ file inside the frontend directory with NEXT_PUBLIC_POSTMARK_SERVER_TOKEN set to your Postmark server token.
 
 4. Run the project:
- ```bash
+    ```bash
    cd frontend
    npm install
    ```
