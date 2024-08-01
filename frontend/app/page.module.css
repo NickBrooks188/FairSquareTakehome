@@ -47,10 +47,17 @@
 
 .option {
   cursor: pointer;
+  border-radius: 5px;
+  padding: 6px;
+  margin: -6px;
 }
 
 .option:hover {
-  background-color: var(--gray-light);
+  background-color: #F5F5F5;
+}
+
+.option:active {
+  background-color: #EEE;
 }
 
 .code {
@@ -237,10 +244,7 @@
 }
 
 .selected_email {
-  background-color: var(--gray-med);
-  border-radius: 5px;
-  padding: 6px;
-  margin: -6px;
+  background-color: var(--gray-med) !important;
 }
 
 .stats_grid {
