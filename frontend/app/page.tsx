@@ -14,8 +14,9 @@ export default function Home() {
   const templates = useAppSelector(state => state.templates.data)
   const combinations = useAppSelector(state => state.templates.combinations)
 
-  const [selectedEmail, setSelectedEmail] = useState('')
+  const [selectedEmails, setSelectedEmails] = useState<any>({})
   const [selectedTemplate, setSelectedTemplate] = useState('All')
+
 
   const [subject, setSubject] = useState('')
   const [body, setBody] = useState('')
@@ -23,6 +24,17 @@ export default function Home() {
   const [opens, setOpens] = useState(0)
   const [clicks, setClicks] = useState(0)
   const [total, setTotal] = useState(0)
+
+  // Toggle whether an email will be included in the batch
+  const toggleEmail = (email: string) => {
+    const tempEmail = { ...selectedEmails }
+    if (tempEmail[email]) {
+      delete tempEmail[email]
+    } else {
+      tempEmail[email] = true
+    }
+    setSelectedEmails(tempEmail)
+  }
 
 
   // Load users and templates, in a full application these would be loaded from a backend, but here we just use the hardcoded data
@@ -36,14 +48,14 @@ export default function Home() {
   async function sendEmail() {
     const newIndex = Object.keys(templates).length + 1
     let tag = newIndex
-    const to = selectedEmail
+    const to = Object.keys(selectedEmails)
     // Check if the email is a combination of a subject and body (i.e., template) that already exists
     if (combinations[subject]) {
       if (combinations[subject][body]) {
         tag = combinations[subject][body]
       }
     }
-    if (to === '') {
+    if (!to.length) {
       return
     }
     // If this is a new template, add it to the store
@@ -105,12 +117,12 @@ export default function Home() {
 
   return (
     <main className={styles.main}>
-      <div>Recipient:</div>
+      <div>Recipients:</div>
       <div className={styles.options_wrapper}>
         {users && Object.values(users).map((user: any) => (
           <div key={user.id}
-            className={clsx(styles.option, { [styles.selected_email]: selectedEmail === user.email })}
-            onClick={() => setSelectedEmail(user.email)}>{user.email}
+            className={clsx(styles.option, { [styles.selected_email]: selectedEmails[user.email] })}
+            onClick={() => toggleEmail(user.email)}>{user.email}
           </div>
         ))}
       </div>
@@ -119,7 +131,7 @@ export default function Home() {
         <textarea placeholder="Body" value={body} onChange={(e) => setBody(e.target.value)} />
       </div>
       <div className={styles.nav_buttons}>
-        <button className="button-dark" onClick={sendEmail} disabled={(!selectedEmail || !subject || !body)} ><FontAwesomeIcon icon={faPaperPlane} /> Send Email</button>
+        <button className="button-dark" onClick={sendEmail} disabled={(!Object.keys(selectedEmails).length || !subject || !body)} ><FontAwesomeIcon icon={faPaperPlane} /> Send Email</button>
       </div>
       <div className={styles.title_divider} />
       <div>Filter by template:</div>
