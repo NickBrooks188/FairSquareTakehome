@@ -4,7 +4,6 @@ import { NextResponse } from "next/server";
 export async function POST(request) {
     const req = await request.json();
     const tag = req.tag;
-    console.log(tag)
     if (tag === "All") {
         console.log("Here")
         const res = await fetch('https://api.postmarkapp.com/stats/outbound', {

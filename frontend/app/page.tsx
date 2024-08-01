@@ -35,8 +35,11 @@ export default function Home() {
   async function sendEmail() {
     let tag = Object.keys(templates).length
     const to = selectedEmail
-    if (combinations?.subject?.body) {
-      tag = combinations.subject.body
+    console.log(combinations)
+    if (combinations[subject]) {
+      if (combinations[subject][body]) {
+        tag = combinations[subject][body]
+      }
     } else {
       dispatch(addTemplate({ subject, body, id: tag }))
     }
@@ -58,6 +61,7 @@ export default function Home() {
 
   const getStats = async () => {
     const tag = selectedTemplate
+    let statsData, opensData
     try {
       const res = await fetch('/api/stats', {
         method: 'POST',
@@ -66,12 +70,10 @@ export default function Home() {
         },
         body: JSON.stringify({ tag })
       })
-      const data = await res.json()
-      setTotal(data.Sent)
-      setClicks(data.TotalClicks)
-      console.log(data)
+      statsData = await res.json()
     } catch (e) {
       console.error(e);
+      return
     }
     try {
       const res = await fetch('/api/opens', {
@@ -81,22 +83,20 @@ export default function Home() {
         },
         body: JSON.stringify({ tag })
       })
-      const data = await res.json()
-      setOpens(data.TotalCount)
-      console.log(data)
+      opensData = await res.json()
     } catch (e) {
       console.error(e);
+      return
     }
+    setTotal(statsData.Sent)
+    setClicks(statsData.TotalClicks)
+    setOpens(opensData.TotalCount)
   }
 
 
   return (
     <main className={styles.main}>
-      <div className={styles.nav_buttons}>
-        <div className="button-dark" onClick={sendEmail}><FontAwesomeIcon icon={faPaperPlane} /> Send Email</div>
-
-      </div>
-      <div>Selected email:</div>
+      <div>Recipient:</div>
       <div className={styles.options_wrapper}>
 
         {users && Object.values(users).map((user: any) => (
@@ -107,9 +107,12 @@ export default function Home() {
         ))}
       </div>
       <input type="text" placeholder="Subject" value={subject} onChange={(e) => setSubject(e.target.value)} />
-      <input type="text" placeholder="Body" value={body} onChange={(e) => setBody(e.target.value)} />
+      <textarea placeholder="Body" value={body} onChange={(e) => setBody(e.target.value)} />
+      <div className={styles.nav_buttons}>
+        <div className="button-dark" onClick={sendEmail}><FontAwesomeIcon icon={faPaperPlane} /> Send Email</div>
+
+      </div>
       <div className={styles.title_divider} />
-      <div className="button-light" onClick={getStats}><FontAwesomeIcon icon={faChartSimple} /> Get Stats</div>
       <div>Selected template:</div>
       <div className={styles.options_wrapper}>
         <div
@@ -122,9 +125,10 @@ export default function Home() {
           </div>
         ))}
       </div>
+      <div className="button-light" onClick={getStats}><FontAwesomeIcon icon={faChartSimple} /> Get Stats</div>
       <div>
-        <div>Opens: {opens}</div>
-        <div>Clicks: {clicks}</div>
+        <div>Opens: {opens} {`(${total > 0 ? (opens / total) : 0}%)`}</div>
+        <div>Clicks: {clicks} {`(${total > 0 ? (clicks / total) : 0}%)`}</div>
         <div>Total sent: {total}</div>
       </div>
     </main>
