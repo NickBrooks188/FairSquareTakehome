@@ -231,6 +231,15 @@
   margin: -6px;
 }
 
+.stats_grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  border: 1px solid var(--gray-med);
+  padding: 7px;
+  border-radius: 4px;
+}
+
 @keyframes border-move {
   0% {
     background-position: 0 0;

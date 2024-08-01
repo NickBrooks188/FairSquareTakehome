@@ -36,6 +36,7 @@ export default function Home() {
   async function sendEmail() {
     let tag = Object.keys(templates).length + 1
     const to = selectedEmail
+    console.log(combinations[subject], body)
     if (combinations[subject]) {
       if (combinations[subject][body]) {
         tag = combinations[subject][body]
@@ -125,10 +126,10 @@ export default function Home() {
         ))}
       </div>
       <div className="button-light" onClick={getStats}><FontAwesomeIcon icon={faChartSimple} /> Get Stats</div>
-      <div>
-        <div>Opens: {opens} {`(${total > 0 ? (opens / total) : 0}%)`}</div>
-        <div>Clicks: {clicks} {`(${total > 0 ? (clicks / total) : 0}%)`}</div>
-        <div>Total sent: {total}</div>
+      <div className={styles.stats_grid}>
+        <div>Opens:</div><div> {opens} {`(${total > 0 ? (100 * opens / total).toFixed(0) : 0}%)`}</div>
+        <div>Clicks:</div><div> {clicks} {`(${total > 0 ? (100 * clicks / total).toFixed(0) : 0}%)`}</div>
+        <div>Total sent:</div><div> {total}</div>
       </div>
     </main>
   );

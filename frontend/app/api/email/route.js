@@ -8,7 +8,7 @@ export async function POST(request) {
         "From": 'nicholas.brooks@aya.yale.edu',
         "To": to,
         "Subject": subject,
-        "TextBody": body,
+        "HTMLBody": body,
         "TrackOpens": true,
         "Tag": tag
     })
