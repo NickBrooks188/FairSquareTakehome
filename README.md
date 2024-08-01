@@ -29,3 +29,5 @@
    frontend/app/redux/db.ts
 ### Other state management files
    frontend/app/redux
+### API routes
+   frontend/app/api
