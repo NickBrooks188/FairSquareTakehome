@@ -15,6 +15,7 @@
    npm run dev
    ```
    It will run on localhost:3000 by default.
+5. (Optional) To change the available emails, modify the mock data inside the db.ts file within the redux folder.
 
 ## Application Screenshot
 <img src='https://jello-bucket.s3.us-west-1.amazonaws.com/FairSquareScreenshot.png'>
