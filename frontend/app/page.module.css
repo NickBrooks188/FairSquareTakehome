@@ -34,6 +34,18 @@
   border-radius: var(--border-radius);
 }
 
+.options_wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  border: 1px solid var(--gray-med);
+  border-radius: 5px;
+  padding: 10px;
+  cursor: pointer;
+  margin: 5px;
+}
+
 .code {
   font-weight: 700;
   font-family: var(--font-mono);
@@ -210,6 +222,13 @@
   background-position: 0px 0px, 200px 100px, 0px 100px, 200px 0px;
   padding: 2px;
   animation: border-move 60s infinite linear;
+}
+
+.selected_email {
+  background-color: var(--gray-med);
+  border-radius: 5px;
+  padding: 5px;
+  margin: -5px;
 }
 
 @keyframes border-move {
