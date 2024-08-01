@@ -16,6 +16,9 @@
    ```
    It will run on localhost:3000 by default.
 
+## Application Screenshot
+<img src='https://jello-bucket.s3.us-west-1.amazonaws.com/FairSquareScreenshot.png'>
+
 ## Database Schema (not currently implemented)
 <img src='https://jello-bucket.s3.us-west-1.amazonaws.com/FairSquareSchema.png'>
 
