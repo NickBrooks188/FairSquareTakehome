@@ -1,6 +1,5 @@
 'use client'
 import styles from "./page.module.css";
-import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperPlane, faChartSimple } from "@fortawesome/free-solid-svg-icons";
 import { useAppDispatch, useAppSelector } from "./redux/store";
@@ -14,7 +13,6 @@ export default function Home() {
   const users = useAppSelector(state => state.users.data)
   const templates = useAppSelector(state => state.templates.data)
   const combinations = useAppSelector(state => state.templates.combinations)
-  console.log(templates)
 
   const [selectedEmail, setSelectedEmail] = useState('')
   const [selectedTemplate, setSelectedTemplate] = useState('All')
@@ -27,16 +25,19 @@ export default function Home() {
   const [total, setTotal] = useState(0)
 
 
+  // Load users and templates, in a full application these would be loaded from a backend, but here we just use the hardcoded data
   useEffect(() => {
     dispatch(thunkGetUsers())
     dispatch(thunkGetTemplates())
 
   }, [])
 
+  // Send email to selected recipient
   async function sendEmail() {
-    let tag = Object.keys(templates).length + 1
+    const newIndex = Object.keys(templates).length + 1
+    let tag = newIndex
     const to = selectedEmail
-    console.log(combinations[subject], body)
+    // Check if the email is a combination of a subject and body (i.e., template) that already exists
     if (combinations[subject]) {
       if (combinations[subject][body]) {
         tag = combinations[subject][body]
@@ -45,7 +46,11 @@ export default function Home() {
     if (to === '') {
       return
     }
-    dispatch(addTemplate({ subject, body, id: tag }))
+    // If this is a new template, add it to the store
+    if (tag === newIndex) {
+      dispatch(addTemplate({ subject, body, id: tag }))
+    }
+    // Send the request - we need to use Net.js's built in API functionality since Postmark won't accept requests directly from the frontend
     try {
       await fetch('/api/email', {
         method: 'POST',
@@ -59,9 +64,11 @@ export default function Home() {
     }
   }
 
+  // Get stats for the selected template, or all emails if no template is selected
   const getStats = async () => {
     const tag = selectedTemplate
     let statsData, opensData
+    // Fetch stats
     try {
       const res = await fetch('/api/stats', {
         method: 'POST',
@@ -75,6 +82,7 @@ export default function Home() {
       console.error(e);
       return
     }
+    // Fetch opens
     try {
       const res = await fetch('/api/opens', {
         method: 'POST',
@@ -88,6 +96,7 @@ export default function Home() {
       console.error(e);
       return
     }
+    // Only display data if both requests were successful
     setTotal(statsData.Sent)
     setClicks(statsData.TotalClicks)
     setOpens(opensData.TotalCount)
