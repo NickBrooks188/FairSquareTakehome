@@ -9,7 +9,7 @@ export const thunkGetUsers = () => async (dispatch: any) => {
     return users
 };
 
-export const addUser = (user: {}) => async (dispatch: any) => {
+export const addUser = (user: void) => async (dispatch: any) => {
     dispatch(usersSlice.actions.addUsers(user));
     return user
 };
@@ -22,8 +22,8 @@ export const usersSlice = createSlice({
             state.data = action.payload
         },
         addUsers: (state, action: PayloadAction) => {
-            const newState = [...state.data]
-            newState.push(action.payload)
+            const newState = { ...state.data }
+            newState[action.payload.id] = action.payload
             state.data = newState
         }
     }

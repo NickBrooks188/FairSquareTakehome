@@ -20,6 +20,7 @@ export default function Home() {
     const subject = "TEST"
     const body = selectedEmail
     const to = selectedEmail
+    let tag = 1
     if (to === '') {
       return
     }
@@ -29,7 +30,7 @@ export default function Home() {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ subject, body, to })
+        body: JSON.stringify({ subject, body, to, tag })
       })
     } catch (e) {
       console.error(e);
