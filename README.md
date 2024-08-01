@@ -25,10 +25,10 @@
 
 ## Important files
 ### Main page
-   frontend/app/page.tsx
+   ```frontend/app/page.tsx```
 ### "Database"
-   frontend/app/redux/db.ts
+   ```frontend/app/redux/db.ts```
 ### Other state management files
-   frontend/app/redux
+   ```frontend/app/redux```
 ### API routes
-   frontend/app/api
+   ```frontend/app/api```
