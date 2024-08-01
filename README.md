@@ -14,4 +14,4 @@
     ```bash
    npm run dev
    ```
-It will run on localhost:3000 by default.
+   It will run on localhost:3000 by default.
