@@ -12,7 +12,6 @@
 
 4. Run the project:
     ```bash
-   cd frontend
-   npm install
+   npm run dev
    ```
 It will run on localhost:3000 by default.
