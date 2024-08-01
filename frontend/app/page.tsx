@@ -36,6 +36,36 @@ export default function Home() {
     }
   }
 
+  const getOpens = async () => {
+    try {
+      const res = await fetch('/api/opens', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      })
+      const data = await res.json()
+      console.log(data)
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  const getStats = async () => {
+    try {
+      const res = await fetch('/api/stats', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      })
+      const data = await res.json()
+      console.log(data)
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
 
   return (
     <main className={styles.main}>
@@ -43,6 +73,9 @@ export default function Home() {
       <div className={styles.nav_buttons}>
         <Link href='/party_a'><div className="button-light">Party A</div></Link>
         <div className="button-dark" onClick={sendEmail}><FontAwesomeIcon icon={faArrowsSpin} /> Send Email</div>
+        <div className="button-light" onClick={getOpens}><FontAwesomeIcon icon={faArrowsSpin} /> Get Opens</div>
+        <div className="button-light" onClick={getStats}><FontAwesomeIcon icon={faArrowsSpin} /> Get Stats</div>
+
         <Link href='/party_b'><div className="button-light">Party B</div></Link>
       </div>
       <div>Selected email: {selectedEmail}</div>
