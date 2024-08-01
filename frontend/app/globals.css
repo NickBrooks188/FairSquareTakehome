@@ -199,7 +199,7 @@ input[type='number'] {
   border: 1px solid #EBEBEB;
   border-radius: 5px;
   padding: 10px;
-  font-size: 16px;
+  font-size: 14px;
   margin: 10px 0 10px 0;
   width: 180px;
   height: 44px;
@@ -208,13 +208,16 @@ input[type='number'] {
 textarea {
   border: 1px solid #EBEBEB;
   border-radius: 5px;
-  padding: 10px;
-  font-size: 20px;
+  padding: 10px 15px 10px 10px;
+  font-size: 14px;
   margin: 10px 0 10px 0;
-  width: 150px;
+  min-width: 200px;
   height: 44px;
+  min-height: 44px;
   font-family: inherit;
   max-width: 300px;
+  resize: vertical;
+  text-align: left;
 }
 
 input[type='number'] {

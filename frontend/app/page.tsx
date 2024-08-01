@@ -128,7 +128,7 @@ export default function Home() {
       </div>
       <div className={styles.input_wrapper}>
         <input type="text" placeholder="Subject" value={subject} onChange={(e) => setSubject(e.target.value)} />
-        <textarea placeholder="Body" value={body} onChange={(e) => setBody(e.target.value)} />
+        <textarea placeholder="Body" value={body} rows={1} onChange={(e) => setBody(e.target.value)} />
       </div>
       <div className={styles.nav_buttons}>
         <button className="button-dark" onClick={sendEmail} disabled={(!Object.keys(selectedEmails).length || !subject || !body)} ><FontAwesomeIcon icon={faPaperPlane} /> Send Email</button>
