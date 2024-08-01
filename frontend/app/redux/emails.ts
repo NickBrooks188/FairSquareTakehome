@@ -18,10 +18,10 @@ export const emailsSlice = createSlice({
     name: "emails",
     initialState,
     reducers: {
-        setemails: (state, action: PayloadAction) => {
+        setemails: (state, action: PayloadAction<any>) => {
             state.data = action.payload
         },
-        addemails: (state, action: PayloadAction) => {
+        addemails: (state, action: PayloadAction<any>) => {
             const newState = { ...state.data }
             newState[action.payload.id] = action.payload
             state.data = newState

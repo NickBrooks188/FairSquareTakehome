@@ -18,10 +18,10 @@ export const usersSlice = createSlice({
     name: "users",
     initialState,
     reducers: {
-        setUsers: (state, action: PayloadAction) => {
+        setUsers: (state, action: PayloadAction<any>) => {
             state.data = action.payload
         },
-        addUsers: (state, action: PayloadAction) => {
+        addUsers: (state, action: PayloadAction<any>) => {
             const newState = { ...state.data }
             newState[action.payload.id] = action.payload
             state.data = newState

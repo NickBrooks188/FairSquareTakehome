@@ -4,6 +4,13 @@ import { templates } from "./db"
 
 const initialState: any = {};
 
+interface Template {
+    id: number,
+    subject: string,
+    body: string,
+    owner: number
+}
+
 export const thunkGetTemplates = () => async (dispatch: any) => {
     dispatch(templatesSlice.actions.setTemplates(templates));
     return templates
@@ -18,7 +25,7 @@ export const templatesSlice = createSlice({
     name: "templates",
     initialState,
     reducers: {
-        setTemplates: (state, action: PayloadAction) => {
+        setTemplates: (state, action: PayloadAction<any>) => {
             state.data = action.payload
             const combinations: any = {}
             for (const template of Object.values(action.payload)) {
@@ -29,7 +36,7 @@ export const templatesSlice = createSlice({
             }
             state.combinations = combinations
         },
-        addTemplates: (state, action: PayloadAction) => {
+        addTemplates: (state, action: PayloadAction<any>) => {
             const newState = { ...state }
             if (!newState.combinations[action.payload.subject]) {
                 newState.combinations[action.payload.subject] = {}
