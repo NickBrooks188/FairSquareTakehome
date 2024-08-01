@@ -14,7 +14,6 @@ export async function POST(request) {
             }
         });
         const data = await res.json();
-        console.log(data)
         return NextResponse.json(data);
     } else {
         const res = await fetch(`https://api.postmarkapp.com/messages/outbound/opens?count=50&offset=0&tag=${tag}`, {

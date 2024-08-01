@@ -14,6 +14,7 @@ export default function Home() {
   const users = useAppSelector(state => state.users.data)
   const templates = useAppSelector(state => state.templates.data)
   const combinations = useAppSelector(state => state.templates.combinations)
+  console.log(templates)
 
   const [selectedEmail, setSelectedEmail] = useState('')
   const [selectedTemplate, setSelectedTemplate] = useState('All')
@@ -33,19 +34,17 @@ export default function Home() {
   }, [])
 
   async function sendEmail() {
-    let tag = Object.keys(templates).length
+    let tag = Object.keys(templates).length + 1
     const to = selectedEmail
-    console.log(combinations)
     if (combinations[subject]) {
       if (combinations[subject][body]) {
         tag = combinations[subject][body]
       }
-    } else {
-      dispatch(addTemplate({ subject, body, id: tag }))
     }
     if (to === '') {
       return
     }
+    dispatch(addTemplate({ subject, body, id: tag }))
     try {
       await fetch('/api/email', {
         method: 'POST',
