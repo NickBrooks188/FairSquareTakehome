@@ -2,7 +2,7 @@
 import styles from "./page.module.css";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowsSpin, faPaperPlane, faChartSimple } from "@fortawesome/free-solid-svg-icons";
+import { faPaperPlane, faChartSimple } from "@fortawesome/free-solid-svg-icons";
 import { useAppDispatch, useAppSelector } from "./redux/store";
 import { useEffect, useState } from "react";
 import { thunkGetUsers } from "./redux/users";
@@ -98,29 +98,30 @@ export default function Home() {
     <main className={styles.main}>
       <div>Recipient:</div>
       <div className={styles.options_wrapper}>
-
         {users && Object.values(users).map((user: any) => (
           <div key={user.id}
-            className={clsx({ [styles.selected_email]: selectedEmail === user.email })}
+            className={clsx(styles.option, { [styles.selected_email]: selectedEmail === user.email })}
             onClick={() => setSelectedEmail(user.email)}>{user.email}
           </div>
         ))}
       </div>
-      <input type="text" placeholder="Subject" value={subject} onChange={(e) => setSubject(e.target.value)} />
-      <textarea placeholder="Body" value={body} onChange={(e) => setBody(e.target.value)} />
+      <div className={styles.input_wrapper}>
+        <input type="text" placeholder="Subject" value={subject} onChange={(e) => setSubject(e.target.value)} />
+        <textarea placeholder="Body" value={body} onChange={(e) => setBody(e.target.value)} />
+      </div>
       <div className={styles.nav_buttons}>
-        <div className="button-dark" onClick={sendEmail}><FontAwesomeIcon icon={faPaperPlane} /> Send Email</div>
-
+        <button className="button-dark" onClick={sendEmail} disabled={(!selectedEmail || !subject || !body)} ><FontAwesomeIcon icon={faPaperPlane} /> Send Email</button>
       </div>
       <div className={styles.title_divider} />
-      <div>Selected template:</div>
+      <div>Filter by template:</div>
       <div className={styles.options_wrapper}>
         <div
-          className={clsx({ [styles.selected_email]: selectedTemplate === "All" })}
+          className={clsx(styles.option, { [styles.selected_email]: selectedTemplate === "All" })}
           onClick={() => setSelectedTemplate('All')}>All</div>
         {templates && Object.values(templates).map((template: any) => (
           <div key={template.id}
-            className={clsx({ [styles.selected_email]: selectedTemplate === template.id })}
+            title={template.subject}
+            className={clsx(styles.option, { [styles.selected_email]: selectedTemplate === template.id })}
             onClick={() => setSelectedTemplate(template.id)}>{template.id}
           </div>
         ))}
