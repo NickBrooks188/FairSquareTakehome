@@ -37,7 +37,6 @@ export const templatesSlice = createSlice({
             newState.combinations[action.payload.subject][action.payload.body] = action.payload.id
             newState.data[action.payload.id] = action.payload
             state = newState
-            console.log(newState)
         }
     }
 });

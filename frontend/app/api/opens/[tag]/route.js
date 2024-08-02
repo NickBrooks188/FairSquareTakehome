@@ -3,7 +3,6 @@ import { NextResponse } from "next/server";
 
 export async function GET(request) {
     const tag = await request.nextUrl.searchParams.get('tag');
-    console.log("Open: ", tag)
     if (tag === "All") {
         const res = await fetch('https://api.postmarkapp.com/messages/outbound/opens?count=50&offset=0', {
             method: 'GET',
