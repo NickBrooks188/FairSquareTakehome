@@ -74,7 +74,6 @@ export default function Home() {
   // Get stats for the selected template, or all emails if no template is selected
   const getStats = async () => {
     const tag = (selectedTemplate == 'All' ? '' : selectedTemplate)
-    let statsData, opensData
     // Fetch stats
     try {
       const res = await fetch(`/api/stats/${tag}`, {
@@ -83,15 +82,15 @@ export default function Home() {
           'Content-Type': 'application/json'
         }
       })
-      statsData = await res.json()
+      const statsData = await res.json()
+      // Only display data if both requests were successful
+      setTotal(statsData.Sent)
+      setClicks(statsData.TotalClicks)
+      setOpens(statsData.UniqueOpens)
     } catch (e) {
       console.error(e);
       return
     }
-    // Only display data if both requests were successful
-    setTotal(statsData.Sent)
-    setClicks(statsData.TotalClicks)
-    setOpens(statsData.UniqueOpens)
   }
 
 
