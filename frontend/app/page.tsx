@@ -82,12 +82,11 @@ export default function Home() {
     let statsData, opensData
     // Fetch stats
     try {
-      const res = await fetch('/api/stats', {
-        method: 'POST',
+      const res = await fetch(`/api/stats/${tag}`, {
+        method: 'GET',
         headers: {
           'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ tag })
+        }
       })
       statsData = await res.json()
     } catch (e) {
@@ -96,12 +95,11 @@ export default function Home() {
     }
     // Fetch opens
     try {
-      const res = await fetch('/api/opens', {
-        method: 'POST',
+      const res = await fetch(`/api/opens/${tag}`, {
+        method: 'GET',
         headers: {
           'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ tag })
+        }
       })
       opensData = await res.json()
     } catch (e) {
