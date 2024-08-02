@@ -65,6 +65,7 @@ export default function Home() {
         },
         body: JSON.stringify({ subject, body, to, tag })
       })
+      console.log("Email sent!")
     } catch (e) {
       console.error(e);
     }
