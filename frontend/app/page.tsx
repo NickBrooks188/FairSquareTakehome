@@ -93,23 +93,10 @@ export default function Home() {
       console.error(e);
       return
     }
-    // Fetch opens
-    try {
-      const res = await fetch(`/api/opens/${tag}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      })
-      opensData = await res.json()
-    } catch (e) {
-      console.error(e);
-      return
-    }
     // Only display data if both requests were successful
     setTotal(statsData.Sent)
     setClicks(statsData.TotalClicks)
-    setOpens(opensData.TotalCount)
+    setOpens(statsData.UniqueOpens)
   }
 
 

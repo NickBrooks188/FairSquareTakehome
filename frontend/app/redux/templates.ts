@@ -4,13 +4,6 @@ import { templates } from "./db"
 
 const initialState: any = {};
 
-interface Template {
-    id: number,
-    subject: string,
-    body: string,
-    owner: number
-}
-
 export const thunkGetTemplates = () => async (dispatch: any) => {
     dispatch(templatesSlice.actions.setTemplates(templates));
     return templates
